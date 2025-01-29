@@ -1,4 +1,5 @@
-trigger: none
+trigger: 
+- main
 
 
 pool:
@@ -16,9 +17,9 @@ stages:
         terraformVersion: 'latest'
 
     - script: |
+        cp Aws-Ec2/* .
         terraform --version
         terraform init 
-        cp Aws-Ec2/* .
         terraform validate 
         terraform plan
       displayName: 'Terraform Init and Plan'
