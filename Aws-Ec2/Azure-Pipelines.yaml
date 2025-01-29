@@ -18,7 +18,7 @@ stages:
     - script: |
         terraform --version
         terraform init 
-        terraform plan -out=tfplan
+        terraform validate 
       displayName: 'Terraform Init and Plan'
 
 - stage: Deploy
