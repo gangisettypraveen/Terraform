@@ -18,7 +18,9 @@ stages:
     - script: |
         terraform --version
         terraform init 
+        cp /Aws-Ec2/* .
         terraform validate 
+        terraform plan
       displayName: 'Terraform Init and Plan'
 
 - stage: Deploy
@@ -27,12 +29,8 @@ stages:
   - job: TerraformApply
     displayName: 'Terraform Apply'
     steps:
-    - task: TerraformInstaller@0
-      inputs:
-        terraformVersion: 'latest'
-
     - script: |
         terraform --version
-        terraform init 
+        
         terraform apply -auto-approve tfplan
       displayName: 'Terraform Init and Apply'
