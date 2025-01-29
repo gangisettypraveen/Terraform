@@ -12,17 +12,27 @@ stages:
   - job: TerraformPlan
     displayName: 'Terraform Plan'
     steps:
-    - task: TerraformInstaller@0
+    - task: AWSShellScript@1
+      continueOnError: true
+      displayName: "Running aws-cli get-caller-identity"
       inputs:
-        terraformVersion: 'latest'
+        awsCredentials: "AWS Credentials"
+        scriptType: inline
+        inlineScript: |
+          terraform init
+          terraform validate
+          terraform plan
+    # - task: TerraformInstaller@0
+    #   inputs:
+    #     terraformVersion: 'latest'
 
-    - script: |
-        cp Aws-Ec2/* .
-        terraform --version
-        terraform init 
-        terraform validate 
-        terraform plan
-      displayName: 'Terraform Init and Plan'
+    # - script: |
+    #     cp Aws-Ec2/* .
+    #     terraform --version
+    #     terraform init 
+    #     terraform validate 
+    #     terraform plan
+    #   displayName: 'Terraform Init and Plan'
 
 - stage: Deploy
   displayName: 'Terraform Apply'
