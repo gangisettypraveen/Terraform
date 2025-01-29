@@ -18,7 +18,7 @@ stages:
     - script: |
         terraform --version
         terraform init 
-        cp /Aws-Ec2/* .
+        cp Aws-Ec2/* .
         terraform validate 
         terraform plan
       displayName: 'Terraform Init and Plan'
